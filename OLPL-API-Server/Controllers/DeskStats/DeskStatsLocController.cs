@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OLPL_API_Server.Models.DeskStats;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -21,7 +22,13 @@ namespace OLPL_API_Server.Controllers
             tb.FillBy(tb1, id);
             if (tb1.Count > 0)
             {
-                return String.Join(Environment.NewLine, tb1.Rows.OfType<DataRow>().Select(x => String.Join(" ; ", x.ItemArray)));
+                string name = "";
+                foreach(DeskStatsLoc.LocationsRow row1 in tb1)
+                {
+                    name= row1.Name;
+                }
+                return name;
+                //return String.Join(Environment.NewLine, tb1.Rows.OfType<DataRow>().Select(x => String.Join(" ; ", x.ItemArray)));
             }
             else { return "NotFound"; }
         }
